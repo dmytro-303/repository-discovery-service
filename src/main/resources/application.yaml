@@ -1,0 +1,16 @@
+spring:
+  main:
+    web-application-type: reactive
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:8082}/repositories
+    username: ${POSTGRES_USERNAME:local}
+    password: ${POSTGRES_PASSWORD:local}
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:8082}/repositories
+    user: ${POSTGRES_USERNAME:local}
+    password: ${POSTGRES_PASSWORD:local}
+
+service:
+  default-start-date: ${DEFAULT_START_DATE:2019-01-10}
+  default-limit: ${DEFAULT_LIMIT:50}
+  fetch-on-startup: ${FETCH_ON_STARTUP:true}

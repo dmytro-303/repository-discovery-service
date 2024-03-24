@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: postgres_service
+    image: postgres:11
+    ports:
+      - "8082:5432"
+    hostname:   postgres-service
+    environment:
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_USER=local
+      - POSTGRES_DB=repositories
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  repository-search-service:
+    build: .
+    container_name: repository-search-service
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_USER=local
+      - POSTGRES_DB=repositories
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
